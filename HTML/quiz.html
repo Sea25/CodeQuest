@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Time!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="quiz-page">
+    <div class="container">
+        <header class="quiz-header">
+            <div class="level-display">LEVEL: <span id="levelName">EASY</span></div>
+            <div class="timer">TIME: <span id="time">30</span>s</div>
+            <div class="score">SCORE: <span id="score">0</span>/10</div>
+        </header>
+        
+        <main class="quiz-container">
+            <div class="question-count">Q<span id="currentQuestion">1</span>/10</div>
+            <div class="question-box pixel-box">
+                <p id="questionText">Loading question...</p>
+            </div>
+            
+            <div class="options-container">
+                <!-- Options will be inserted here by JavaScript -->
+            </div>
+            
+            <div class="feedback pixel-box" id="feedback">
+                Select an answer!
+            </div>
+            
+            <button id="nextBtn" class="pixel-button" disabled>NEXT</button>
+        </main>
+    </div>
+    
+    <script src="js/quiz.js"></script>
+</body>
+</html>

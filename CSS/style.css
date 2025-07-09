@@ -1,0 +1,347 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #0f0f23;
+    color: #fff;
+    line-height: 1.6;
+    background-image: 
+        linear-gradient(rgba(15, 15, 35, 0.9), rgba(15, 15, 35, 0.9)),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect width="2" height="2" x="7" y="7" fill="%23ffffff" opacity="0.2"/></svg>');
+    background-size: 40px 40px;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Pixel Art Elements */
+.pixel-box {
+    background-color: rgba(30, 30, 60, 0.8);
+    border: 4px solid #4d4dff;
+    border-radius: 0;
+    padding: 20px;
+    margin: 15px auto;
+    box-shadow: 4px 4px 0 #1a1a4d;
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+}
+
+.pixel-box::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border: 2px solid #ff66ff;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.pixel-button {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #4d4dff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    margin: 15px 0;
+    cursor: pointer;
+    font-size: 16px;
+    position: relative;
+    box-shadow: 4px 4px 0 #1a1a4d;
+    transition: all 0.1s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.pixel-button:hover {
+    background-color: #6666ff;
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #1a1a4d;
+}
+
+.pixel-button:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0 #1a1a4d;
+}
+
+.pixel-title {
+    color: #ff66ff;
+    text-shadow: 4px 4px 0 #4d4dff, 
+                 8px 8px 0 rgba(77, 77, 255, 0.3);
+    margin: 30px 0;
+    font-size: 2.5rem;
+    line-height: 1.2;
+    position: relative;
+}
+
+/* Welcome Page */
+.welcome-page .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+}
+
+/* Level Selection Page */
+.level-page .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+}
+
+.level-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.level-buttons button {
+    width: 100%;
+}
+
+.level-buttons button:nth-child(1) {
+    background-color: #66ff66; /* Easy - green */
+    box-shadow: 4px 4px 0 #1a661a;
+}
+
+.level-buttons button:nth-child(2) {
+    background-color: #ffff66; /* Medium - yellow */
+    color: #333;
+    box-shadow: 4px 4px 0 #66661a;
+}
+
+.level-buttons button:nth-child(3) {
+    background-color: #ff6666; /* Hard - red */
+    box-shadow: 4px 4px 0 #661a1a;
+}
+
+/* Quiz Page */
+.quiz-page .container {
+    width: 100%;
+    padding: 10px;
+}
+
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 0.8rem;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.quiz-header > div {
+    background-color: rgba(20, 20, 50, 0.8);
+    padding: 10px 15px;
+    border: 3px solid #4d4dff;
+    flex: 1;
+    min-width: 120px;
+}
+
+.quiz-container {
+    background-color: rgba(20, 20, 50, 0.8);
+    border: 4px solid #ff66ff;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 600px;
+    position: relative;
+}
+
+.quiz-container::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border: 2px solid #4d4dff;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.question-count {
+    margin: 10px 0 20px;
+    color: #ffff66;
+    font-size: 1.1rem;
+}
+
+.question-box {
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+.options-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 25px 0;
+}
+
+.option {
+    background-color: rgba(50, 50, 100, 0.8);
+    border: 3px solid #4d4dff;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    position: relative;
+}
+
+.option::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+    border: 2px solid #ff66ff;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.option:hover {
+    background-color: rgba(70, 70, 120, 0.9);
+    transform: translate(2px, 2px);
+}
+
+.option:hover::before {
+    opacity: 1;
+}
+
+.option.correct {
+    background-color: rgba(50, 200, 50, 0.9);
+    border-color: #00cc00;
+    color: #fff;
+}
+
+.option.wrong {
+    background-color: rgba(200, 50, 50, 0.9);
+    border-color: #cc0000;
+    color: #fff;
+}
+
+.option.disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.option.disabled:hover {
+    background-color: rgba(50, 50, 100, 0.8);
+}
+
+.feedback {
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+#nextBtn {
+    background-color: #ff66ff;
+    width: 100%;
+    margin-top: 20px;
+    box-shadow: 4px 4px 0 #661a66;
+}
+
+#nextBtn:hover {
+    background-color: #ff88ff;
+}
+
+/* Result Screen */
+.result-screen {
+    padding: 30px;
+    text-align: center;
+}
+
+.result-screen h2 {
+    color: #ff66ff;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.result-screen p {
+    margin: 15px 0;
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 700px) {
+    .pixel-title {
+        font-size: 1.8rem;
+        text-shadow: 3px 3px 0 #4d4dff, 
+                     6px 6px 0 rgba(77, 77, 255, 0.3);
+    }
+    
+    .quiz-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .quiz-header > div {
+        min-width: 100%;
+    }
+    
+    .question-box {
+        font-size: 1rem;
+        padding: 15px;
+    }
+    
+    .option {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .pixel-title {
+        font-size: 1.5rem;
+        margin: 20px 0;
+    }
+    
+    .pixel-button {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .quiz-container {
+        padding: 15px;
+    }
+    
+    .feedback {
+        font-size: 0.8rem;
+    }
+}
