@@ -1,200 +1,281 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Questions data (same as before)
-    const questions = {
-        easy: [/*...*/],
-        medium: [/*...*/],
-        hard: [/*...*/]
-    };
+    // Quiz questions
+    const questions = [
+        {
+            question: "What does CSS stand for?",
+            options: [
+                "Computer Style Sheets",
+                "Creative Style Sheets",
+                "Cascading Style Sheets",
+                "Colorful Style Sheets"
+            ],
+            answer: "Cascading Style Sheets"
+        },
+        {
+            question: "Which HTML tag is used to link an external JavaScript file?",
+            options: [
+                "<script>",
+                "<javascript>",
+                "<js>",
+                "<link>"
+            ],
+            answer: "<script>"
+        },
+        {
+            question: "What is the purpose of the 'alt' attribute in an image tag?",
+            options: [
+                "To provide alternative text for screen readers",
+                "To change the image source on hover",
+                "To set the image alignment",
+                "To add a border to the image"
+            ],
+            answer: "To provide alternative text for screen readers"
+        },
+        {
+            question: "Which CSS property is used to change the text color of an element?",
+            options: [
+                "text-color",
+                "font-color",
+                "color",
+                "text-style"
+            ],
+            answer: "color"
+        },
+        {
+            question: "What is the correct way to comment in JavaScript?",
+            options: [
+                "<!-- This is a comment -->",
+                "// This is a comment",
+                "' This is a comment",
+                "/* This is a comment */"
+            ],
+            answer: "// This is a comment"
+        },
+        {
+            question: "Which HTML5 element is used for sidebar content?",
+            options: [
+                "<sidebar>",
+                "<aside>",
+                "<nav>",
+                "<section>"
+            ],
+            answer: "<aside>"
+        },
+        {
+            question: "What does the 'flex' value of the display property do?",
+            options: [
+                "Creates a flexible grid layout",
+                "Makes elements display in a row",
+                "Enables a flex container",
+                "Allows elements to resize proportionally"
+            ],
+            answer: "Enables a flex container"
+        },
+        {
+            question: "Which method is used to add an element to the end of an array in JavaScript?",
+            options: [
+                "array.push()",
+                "array.pop()",
+                "array.shift()",
+                "array.unshift()"
+            ],
+            answer: "array.push()"
+        },
+        {
+            question: "What is the purpose of media queries in CSS?",
+            options: [
+                "To apply styles based on device characteristics",
+                "To import external stylesheets",
+                "To create animations",
+                "To define variables"
+            ],
+            answer: "To apply styles based on device characteristics"
+        },
+        {
+            question: "Which selector has the highest specificity in CSS?",
+            options: [
+                "Class selector (.class)",
+                "ID selector (#id)",
+                "Element selector (div)",
+                "Universal selector (*)"
+            ],
+            answer: "ID selector (#id)"
+        }
+    ];
 
-    // Quiz state variables
-    let currentLevel = localStorage.getItem('selectedLevel') || 'easy';
+    // Quiz variables
     let currentQuestionIndex = 0;
     let score = 0;
     let timer;
-    let timeLeft = 30;
+    let timeLeft = 10;
     let quizCompleted = false;
+    let shuffledQuestions = [];
 
     // DOM elements
-    const levelNameElement = document.getElementById('levelName');
-    const questionTextElement = document.getElementById('questionText');
-    const optionsContainer = document.querySelector('.options-container');
+    const questionContainer = document.getElementById('questionContainer');
     const currentQuestionElement = document.getElementById('currentQuestion');
-    const scoreElement = document.getElementById('score');
+    const totalQuestionsElement = document.getElementById('totalQuestions');
     const timeElement = document.getElementById('time');
-    const feedbackElement = document.getElementById('feedback');
-    const nextButton = document.getElementById('nextBtn');
+    const scoreElement = document.getElementById('score');
+    const resultContainer = document.getElementById('resultContainer');
+    const finalScoreElement = document.getElementById('finalScore');
+    const restartQuizBtn = document.getElementById('restartQuiz');
 
-    // Initialize the quiz
+    // Initialize quiz
     function initQuiz() {
-        // Verify we have questions for the selected level
-        if (!questions[currentLevel]) {
-            currentLevel = 'easy'; // Default to easy if level is invalid
-        }
-        
-        levelNameElement.textContent = currentLevel.toUpperCase();
-        loadQuestion();
+        // Shuffle questions and options
+        shuffledQuestions = shuffleArray([...questions]);
+        shuffledQuestions.forEach(q => {
+            q.options = shuffleArray(q.options);
+        });
+
+        totalQuestionsElement.textContent = shuffledQuestions.length;
+        showQuestion();
         startTimer();
     }
 
-    // Load a question
-    function loadQuestion() {
-        // Check if quiz is completed
-        if (currentQuestionIndex >= questions[currentLevel].length) {
+    // Show current question
+    function showQuestion() {
+        if (currentQuestionIndex >= shuffledQuestions.length) {
             endQuiz();
             return;
         }
 
-        const question = questions[currentLevel][currentQuestionIndex];
-        questionTextElement.textContent = question.question;
+        const question = shuffledQuestions[currentQuestionIndex];
         currentQuestionElement.textContent = currentQuestionIndex + 1;
 
-        // Clear previous options
-        optionsContainer.innerHTML = '';
+        questionContainer.innerHTML = `
+            <div class="question-text">${question.question}</div>
+            <div class="options-container">
+                ${question.options.map(option => `
+                    <button class="option-btn">${option}</button>
+                `).join('')}
+            </div>
+        `;
 
-        // Create new options
-        question.options.forEach((option, index) => {
-            const optionElement = document.createElement('div');
-            optionElement.classList.add('option', 'pixel-box');
-            optionElement.textContent = option;
-            optionElement.addEventListener('click', () => selectAnswer(index));
-            optionsContainer.appendChild(optionElement);
+        // Add event listeners to options
+        const optionButtons = document.querySelectorAll('.option-btn');
+        optionButtons.forEach(button => {
+            button.addEventListener('click', () => selectOption(button));
         });
 
-        // Reset feedback and next button
-        feedbackElement.textContent = 'Select an answer!';
-        feedbackElement.style.color = '#ffffff';
-        nextButton.disabled = true;
-        
-        // Reset timer
+        // Reset timer for new question
         resetTimer();
+    }
+
+    // Select an option
+    function selectOption(selectedButton) {
+        if (quizCompleted) return;
+
+        clearInterval(timer);
+        const question = shuffledQuestions[currentQuestionIndex];
+        const options = document.querySelectorAll('.option-btn');
+        const selectedAnswer = selectedButton.textContent;
+        let isCorrect = false;
+
+        // Disable all options
+        options.forEach(button => {
+            button.classList.add('disabled');
+        });
+
+        // Check if answer is correct
+        if (selectedAnswer === question.answer) {
+            selectedButton.classList.add('correct');
+            score += 5;
+            scoreElement.textContent = score;
+            isCorrect = true;
+        } else {
+            selectedButton.classList.add('incorrect');
+            // Highlight correct answer
+            options.forEach(button => {
+                if (button.textContent === question.answer) {
+                    button.classList.add('correct');
+                }
+            });
+        }
+
+        // Move to next question after delay
+        setTimeout(() => {
+            currentQuestionIndex++;
+            showQuestion();
+        }, 1500);
     }
 
     // Timer functions
     function startTimer() {
-        timeLeft = 30;
-        updateTimerDisplay();
-        
-        clearInterval(timer);
         timer = setInterval(() => {
             timeLeft--;
-            updateTimerDisplay();
-            
+            timeElement.textContent = timeLeft;
+
             if (timeLeft <= 0) {
-                clearInterval(timer);
                 timeUp();
             }
         }, 1000);
     }
 
     function resetTimer() {
-        timeLeft = 30;
-        updateTimerDisplay();
-    }
-
-    function updateTimerDisplay() {
-        timeElement.textContent = timeLeft;
-        
-        // Change color when time is running low
-        if (timeLeft <= 10) {
-            timeElement.style.color = '#ff6666';
-        } else {
-            timeElement.style.color = '#ffffff';
-        }
-    }
-
-    // Handle when time runs out
-    function timeUp() {
-        const question = questions[currentLevel][currentQuestionIndex];
-        const options = document.querySelectorAll('.option');
-        
-        // Disable all options
-        options.forEach(option => {
-            option.classList.add('disabled');
-            option.removeEventListener('click', selectAnswer);
-        });
-        
-        // Highlight correct answer
-        options[question.answer].classList.add('correct');
-        
-        feedbackElement.textContent = 'Time is up! The correct answer is highlighted.';
-        feedbackElement.style.color = '#ff6666';
-        nextButton.disabled = false;
-    }
-
-    // Handle answer selection
-    function selectAnswer(selectedIndex) {
-        const question = questions[currentLevel][currentQuestionIndex];
-        const options = document.querySelectorAll('.option');
-        
-        // Stop the timer
         clearInterval(timer);
-        
+        timeLeft = 10;
+        timeElement.textContent = timeLeft;
+        startTimer();
+    }
+
+    function timeUp() {
+        clearInterval(timer);
+        const question = shuffledQuestions[currentQuestionIndex];
+        const options = document.querySelectorAll('.option-btn');
+
         // Disable all options
-        options.forEach(option => {
-            option.classList.add('disabled');
-            option.removeEventListener('click', selectAnswer);
+        options.forEach(button => {
+            button.classList.add('disabled');
+            
+            // Highlight correct answer
+            if (button.textContent === question.answer) {
+                button.classList.add('correct');
+            }
         });
-        
-        // Check if answer is correct
-        if (selectedIndex === question.answer) {
-            options[selectedIndex].classList.add('correct');
-            score++;
-            scoreElement.textContent = score;
-            feedbackElement.textContent = 'Correct! Well done!';
-            feedbackElement.style.color = '#66ff66';
-        } else {
-            options[selectedIndex].classList.add('wrong');
-            options[question.answer].classList.add('correct');
-            feedbackElement.textContent = `Wrong! The correct answer is: ${question.options[question.answer]}`;
-            feedbackElement.style.color = '#ff6666';
-        }
-        
-        nextButton.disabled = false;
+
+        // Move to next question after delay
+        setTimeout(() => {
+            currentQuestionIndex++;
+            showQuestion();
+        }, 1500);
     }
 
-    // Move to next question
-    function nextQuestion() {
-        currentQuestionIndex++;
-        if (currentQuestionIndex < questions[currentLevel].length) {
-            loadQuestion();
-            startTimer();
-        } else {
-            endQuiz();
-        }
-    }
-
-    // End the quiz
+    // End quiz
     function endQuiz() {
         clearInterval(timer);
         quizCompleted = true;
-        
-        // Display results
-        document.querySelector('.quiz-container').innerHTML = `
-            <div class="result-screen pixel-box">
-                <h2>QUIZ COMPLETED!</h2>
-                <p>Level: ${currentLevel.toUpperCase()}</p>
-                <p>Score: ${score}/10</p>
-                <p>${getResultMessage(score)}</p>
-                <button id="restartBtn" class="pixel-button">PLAY AGAIN</button>
-            </div>
-        `;
-        
-        document.getElementById('restartBtn').addEventListener('click', () => {
-            window.location.href = 'level.html';
-        });
+        questionContainer.classList.add('hidden');
+        resultContainer.classList.remove('hidden');
+        finalScoreElement.textContent = score;
     }
 
-    // Get a fun result message based on score
-    function getResultMessage(score) {
-        if (score >= 9) return "Astronomical! You're a space expert!";
-        if (score >= 7) return "Great job! You know your space facts!";
-        if (score >= 5) return "Not bad! Keep exploring the cosmos!";
-        if (score >= 3) return "Keep practicing! The universe is vast!";
-        return "Don't give up! The stars await your knowledge!";
+    // Restart quiz
+    function restartQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        quizCompleted = false;
+        scoreElement.textContent = score;
+        questionContainer.classList.remove('hidden');
+        resultContainer.classList.add('hidden');
+        initQuiz();
+    }
+
+    // Utility function to shuffle array
+    function shuffleArray(array) {
+        const newArray = [...array];
+        for (let i = newArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+        }
+        return newArray;
     }
 
     // Event listeners
-    nextButton.addEventListener('click', nextQuestion);
+     restartQuizBtn.addEventListener('click', function() {
+        // Instead of restartQuiz(), we'll reload the page to ensure fresh start
+        window.location.href = 'quiz.html';
 
     // Start the quiz
     initQuiz();

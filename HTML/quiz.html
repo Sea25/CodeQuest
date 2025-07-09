@@ -3,36 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Time!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <title>Frontend Quiz | Questions</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
 </head>
-<body class="quiz-page">
-    <div class="container">
+<body>
+    <div class="quiz-container">
         <header class="quiz-header">
-            <div class="level-display">LEVEL: <span id="levelName">EASY</span></div>
-            <div class="timer">TIME: <span id="time">30</span>s</div>
-            <div class="score">SCORE: <span id="score">0</span>/10</div>
+            <div class="quiz-progress">
+                <span id="currentQuestion">1</span>/<span id="totalQuestions">10</span>
+            </div>
+            <div class="quiz-timer">
+                <span id="time">10</span>s
+            </div>
+            <div class="quiz-score">
+                Score: <span id="score">0</span>/50
+            </div>
         </header>
-        
-        <main class="quiz-container">
-            <div class="question-count">Q<span id="currentQuestion">1</span>/10</div>
-            <div class="question-box pixel-box">
-                <p id="questionText">Loading question...</p>
+
+        <main class="quiz-main">
+            <div id="questionContainer" class="question-container">
+                <!-- Questions will be inserted here by JavaScript -->
             </div>
-            
-            <div class="options-container">
-                <!-- Options will be inserted here by JavaScript -->
-            </div>
-            
-            <div class="feedback pixel-box" id="feedback">
-                Select an answer!
-            </div>
-            
-            <button id="nextBtn" class="pixel-button" disabled>NEXT</button>
         </main>
+
+        <div id="resultContainer" class="result-container hidden">
+            <h2>Quiz Completed!</h2>
+            <div class="final-score">
+                Your score: <span id="finalScore">0</span>/50
+            </div>
+            <button id="restartQuiz" class="restart-btn">Restart Quiz ↻</button>
+        </div>
     </div>
-    
-    <script src="js/quiz.js"></script>
+    <script src="quiz.js"></script>
 </body>
 </html>

@@ -1,20 +1,8 @@
-// Welcome Page - Start Quiz Button
 document.addEventListener('DOMContentLoaded', function() {
-    // Start Quiz Button
-    const startBtn = document.getElementById('startBtn');
-    if (startBtn) {
-        startBtn.addEventListener('click', function() {
-            window.location.href = 'level.html';
-        });
-    }
+    const startQuizBtn = document.getElementById('startQuiz');
     
-    // Level Selection Buttons
-    const levelButtons = document.querySelectorAll('[data-level]');
-    levelButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const level = this.getAttribute('data-level');
-            localStorage.setItem('selectedLevel', level);
-            window.location.href = 'quiz.html';
-        });
-    }
+    startQuizBtn.addEventListener('click', function() {
+        // Ensure the quiz.html path is correct relative to your file structure
+        window.location.href = 'quiz.html';
+    });
 });

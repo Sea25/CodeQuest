@@ -3,15 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixel Spaceship Quiz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <title>Frontend Quiz | Welcome</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
 </head>
-<body class="welcome-page">
-    <div class="container">
-        <h1 class="pixel-title">LET'S QUIZZY</h1>
-        <button id="startBtn" class="pixel-button">START QUIZ</button>
+<body>
+    <div class="welcome-container">
+        <div class="welcome-card">
+            <h1>Frontend Development Quiz</h1>
+            <p>Test your knowledge of HTML, CSS, and JavaScript with this 10-question quiz.</p>
+            <div class="quiz-details">
+                <div class="detail-item">
+                    <span class="detail-icon">⏱️</span>
+                    <span>10 seconds per question</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-icon">📝</span>
+                    <span>10 questions total</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-icon">🏆</span>
+                    <span>50 points maximum</span>
+                </div>
+            </div>
+            <button id="startQuiz" class="start-btn">Start Quiz →</button>
+        </div>
     </div>
-    <script src="js/main.js"></script>
+    <script src="welcome.js"></script>
 </body>
 </html>
