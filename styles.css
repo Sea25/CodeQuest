@@ -1,11 +1,11 @@
 :root {
     --lavender: #e6e6ff;
-    --purple: #d8b5ff;
+    --purple: #500f9b;
     --soft-pink: #ff9aa2;
     --mint: #b5ead7;
     --peach: #ffdac1;
     --white: #ffffff;
-    --text: #4a4a4a;
+    --text: #000000;
     --correct: #77dd77;
     --wrong: #ff6961;
 }
@@ -54,7 +54,7 @@ h1, h2 {
 }
 
 .start-btn:hover, .restart-btn:hover {
-    background: #c79eff;
+    background: #904cee;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(216,181,255,0.4);
 }
