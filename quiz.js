@@ -274,9 +274,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listeners
      restartQuizBtn.addEventListener('click', function() {
-        // Instead of restartQuiz(), we'll reload the page to ensure fresh start
-        window.location.href = 'quiz.html';
-
-    // Start the quiz
-    initQuiz();
+  // Reloads the quiz page for a fresh start
+  window.location.href = 'quiz.html';
 });
+
+// Start the quiz automatically when the page loads
+initQuiz();
+

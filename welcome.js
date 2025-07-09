@@ -1,3 +1,3 @@
-document.getElementById('startQuiz').addEventListener('click', function() {
-    window.location.href = 'quiz.html';
+document.getElementById('startQuiz').addEventListener('click', () => {
+  window.location.href = 'quiz.html';
 });

@@ -73,3 +73,78 @@ h1 {
     margin: 10px 0;
     color: var(--text);
 }
+/* ===== QUIZ PAGE ADDITIONS ===== */
+.quiz-app {
+  max-width: 600px;
+  margin: auto;
+  background: var(--white);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.quiz-header {
+  margin-bottom: 20px;
+}
+
+.quiz-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.question-container {
+  margin-top: 20px;
+}
+
+.question-text {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option-btn {
+  background: var(--lavender);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 1rem;
+}
+
+.option-btn:hover {
+  background: var(--mint);
+}
+
+.option-btn.correct {
+  background: var(--correct);
+  color: white;
+}
+
+.option-btn.incorrect {
+  background: var(--wrong);
+  color: white;
+}
+
+.option-btn.disabled {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.result-container {
+  margin-top: 30px;
+}
+
+.hidden {
+  display: none;
+}
