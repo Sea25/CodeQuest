@@ -1,30 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Frontend Quiz</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Quicksand:wght@500;600&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Quiz | Questions</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="quiz-app">
-    <header class="quiz-header">
-      <div class="quiz-info">
-        <span>Time: <span id="time">10</span>s</span>
-        <span>Score: <span id="score">0</span></span>
-        <span>Question <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span></span>
-      </div>
-    </header>
-    <main>
-      <div id="questionContainer" class="question-container"></div>
-    </main>
-    <section id="resultContainer" class="result-container hidden">
-      <h2>Quiz Completed!</h2>
-      <p>Your final score is: <span id="finalScore"></span></p>
-      <button id="restartQuiz" class="start-btn">Restart Quiz</button>
-    </section>
-  </div>
-  <script src="quiz.js"></script>
+    <div class="quiz-container">
+        <header class="quiz-header">
+            <div class="quiz-progress">
+                <span id="currentQuestion">1</span>/<span id="totalQuestions">10</span>
+            </div>
+            <div class="quiz-timer">
+                <span id="time">10</span>s
+            </div>
+            <div class="quiz-score">
+                Score: <span id="score">0</span>/50
+            </div>
+        </header>
+
+        <main class="quiz-main">
+            <div id="questionContainer" class="question-container">
+                <!-- Questions will be inserted here by JavaScript -->
+            </div>
+        </main>
+
+        <div id="resultContainer" class="result-container hidden">
+            <h2>Quiz Completed!</h2>
+            <div class="final-score">
+                Your score: <span id="finalScore">0</span>/50
+            </div>
+            <button id="restartQuiz" class="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+    <script src="quiz.js"></script>
 </body>
 </html>
